@@ -1,17 +1,34 @@
-import { useState } from 'react'
-import './App.css'
+import "./App.css";
+import {
+  createBrowserRouter,
+  RouterProvider
+} from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Root from "./router/Root";
+import NotFound from "./pages/NotFound";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      errorElement:<NotFound/>,
+      children: [
+        { path: "/", element: <Home /> },
+        { path: "/about", element: <About /> },
+        { path: "/contact", element: <Contact /> },
+      ],
+    },
+  ]);
 
   return (
- 
-    <div>
-       <h1 className="text-3xl text-red-700 font-bold underline">
-      Hello world!
-    </h1>
-    </div>
-  )
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
-export default App
+export default App;
+
